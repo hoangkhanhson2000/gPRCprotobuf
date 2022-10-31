@@ -69,7 +69,9 @@ public class RouteGuideServer {
   public void start() throws IOException {
     server.start();
     logger.info("Server started, listening on " + port);
-    Runtime.getRuntime().addShutdownHook(new Thread() {
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {}) {
+
+
       @Override
       public void run() {
         // Use stderr here since the logger may have been reset by its JVM shutdown hook.
@@ -117,7 +119,7 @@ public class RouteGuideServer {
   private static class RouteGuideService extends RouteGuideGrpc.RouteGuideImplBase {
     private final Collection<Feature> features;
     private final ConcurrentMap<Point, List<RouteNote>> routeNotes =
-        new ConcurrentHashMap<Point, List<RouteNote>>();
+        new ConcurrentHashMap<>();
 
     RouteGuideService(Collection<Feature> features) {
       this.features = features;
@@ -125,7 +127,7 @@ public class RouteGuideServer {
 
     /**
      * Gets the {@link Feature} at the requested {@link Point}. If no feature at that location
-     * exists, an unnamed feature is returned at the provided location.
+     * exists, an unnamed feature is returned to the provided location.
      *
      * @param request the requested location for the feature.
      * @param responseObserver the observer that will receive the feature at the requested point.
@@ -172,7 +174,7 @@ public class RouteGuideServer {
      */
     @Override
     public StreamObserver<Point> recordRoute(final StreamObserver<RouteSummary> responseObserver) {
-      return new StreamObserver<Point>() {
+      return new StreamObserver<>() {
         int pointCount;
         int featureCount;
         int distance;
@@ -218,7 +220,7 @@ public class RouteGuideServer {
      */
     @Override
     public StreamObserver<RouteNote> routeChat(final StreamObserver<RouteNote> responseObserver) {
-      return new StreamObserver<RouteNote>() {
+      return new StreamObserver<>() {
         @Override
         public void onNext(RouteNote note) {
           List<RouteNote> notes = getOrCreateNotes(note.getLocation());
@@ -248,7 +250,7 @@ public class RouteGuideServer {
      * Get the notes list for the given location. If missing, create it.
      */
     private List<RouteNote> getOrCreateNotes(Point location) {
-      List<RouteNote> notes = Collections.synchronizedList(new ArrayList<RouteNote>());
+      List<RouteNote> notes = Collections.synchronizedList(new ArrayList<>());
       List<RouteNote> prevNotes = routeNotes.putIfAbsent(location, notes);
       return prevNotes != null ? prevNotes : notes;
     }
@@ -273,7 +275,7 @@ public class RouteGuideServer {
 
     /**
      * Calculate the distance between two points using the "haversine" formula.
-     * The formula is based on http://mathforum.org/library/drmath/view/51879.html.
+     * The formula is based on
      *
      * @param start The starting point
      * @param end The end point

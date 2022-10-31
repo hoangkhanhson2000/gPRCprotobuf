@@ -19,9 +19,9 @@ package com.example.grpcprotobuf.manualflowcontrol;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.Status;
-import com.example.grpcprotobuf.manualflowcontrol.HelloReply;
-import com.example.grpcprotobuf.manualflowcontrol.HelloRequest;
-import com.example.grpcprotobuf.manualflowcontrol.StreamingGreeterGrpc;
+//import com.example.grpcprotobuf.manualflowcontrol.HelloReply;
+//import com.example.grpcprotobuf.manualflowcontrol.HelloRequest;
+//import com.example.grpcprotobuf.manualflowcontrol.StreamingGreeterGrpc;
 import io.grpc.stub.ServerCallStreamObserver;
 import io.grpc.stub.StreamObserver;
 
@@ -74,7 +74,7 @@ public class ManualFlowControlServer {
         serverCallStreamObserver.setOnReadyHandler(onReadyHandler);
 
         // Give gRPC a StreamObserver that can observe and process incoming requests.
-        return new StreamObserver<HelloRequest>() {
+        return new StreamObserver<>() {
           @Override
           public void onNext(HelloRequest request) {
             // Process the request and send a response or an error.
@@ -139,7 +139,7 @@ public class ManualFlowControlServer {
 
     logger.info("Listening on " + server.getPort());
 
-    Runtime.getRuntime().addShutdownHook(new Thread() {
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {}) {
       @Override
       public void run() {
         // Use stderr here since the logger may have been reset by its JVM shutdown hook.

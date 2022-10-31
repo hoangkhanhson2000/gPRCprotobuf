@@ -42,7 +42,7 @@ public class RouteGuideClient {
   private final RouteGuideGrpc.RouteGuideBlockingStub blockingStub;
   private final RouteGuideGrpc.RouteGuideStub asyncStub;
 
-  private Random random = new Random();
+  private final Random random = new Random();
   private TestHelper testHelper;
 
   /** Construct client for accessing RouteGuide server using the existing channel. */
@@ -122,7 +122,7 @@ public class RouteGuideClient {
   public void recordRoute(List<Feature> features, int numPoints) throws InterruptedException {
     info("*** RecordRoute");
     final CountDownLatch finishLatch = new CountDownLatch(1);
-    StreamObserver<RouteSummary> responseObserver = new StreamObserver<RouteSummary>() {
+    StreamObserver<RouteSummary> responseObserver = new StreamObserver<>() {
       @Override
       public void onNext(RouteSummary summary) {
         info("Finished trip with {0} points. Passed {1} features. "
@@ -188,7 +188,7 @@ public class RouteGuideClient {
     info("*** RouteChat");
     final CountDownLatch finishLatch = new CountDownLatch(1);
     StreamObserver<RouteNote> requestObserver =
-        asyncStub.routeChat(new StreamObserver<RouteNote>() {
+        asyncStub.routeChat(new StreamObserver<>() {
           @Override
           public void onNext(RouteNote note) {
             info("Got message \"{0}\" at {1}, {2}", note.getMessage(), note.getLocation()
@@ -242,7 +242,7 @@ public class RouteGuideClient {
     if (args.length > 0) {
       if ("--help".equals(args[0])) {
         System.err.println("Usage: [target]");
-        System.err.println("");
+        System.err.println();
         System.err.println("  target  The server to connect to. Defaults to " + target);
         System.exit(1);
       }
@@ -296,17 +296,13 @@ public class RouteGuideClient {
         .setLocation(Point.newBuilder().setLatitude(lat).setLongitude(lon).build()).build();
   }
 
-  /**
-   * Only used for unit test, as we do not want to introduce randomness in unit test.
-   */
-  @VisibleForTesting
-  void setRandom(Random random) {
-    this.random = random;
-  }
 
-  /**
-   * Only used for helping unit test.
-   */
+//  @VisibleForTesting
+//  void setRandom(Random random) {
+//    this.random = random;
+//  }
+
+
   @VisibleForTesting
   interface TestHelper {
     /**
@@ -320,8 +316,8 @@ public class RouteGuideClient {
     void onRpcError(Throwable exception);
   }
 
-  @VisibleForTesting
-  void setTestHelper(TestHelper testHelper) {
-    this.testHelper = testHelper;
-  }
+//  @VisibleForTesting
+//  void setTestHelper(TestHelper testHelper) {
+//    this.testHelper = testHelper;
+//  }
 }

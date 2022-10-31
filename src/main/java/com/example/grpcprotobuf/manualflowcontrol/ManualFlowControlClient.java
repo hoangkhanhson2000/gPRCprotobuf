@@ -46,7 +46,7 @@ public class ManualFlowControlClient {
     // When using manual flow-control and back-pressure on the client, the ClientResponseObserver handles both
     // request and response streams.
     ClientResponseObserver<HelloRequest, HelloReply> clientResponseObserver =
-        new ClientResponseObserver<HelloRequest, HelloReply>() {
+        new ClientResponseObserver<>() {
 
           ClientCallStreamObserver<HelloRequest> requestStream;
 
@@ -70,7 +70,7 @@ public class ManualFlowControlClient {
             // in a timely manner or else message processing throughput will suffer.
             requestStream.setOnReadyHandler(new Runnable() {
               // An iterator is used so we can pause and resume iteration of the request data.
-              Iterator<String> iterator = names().iterator();
+              final Iterator<String> iterator = names().iterator();
 
               @Override
               public void run() {
