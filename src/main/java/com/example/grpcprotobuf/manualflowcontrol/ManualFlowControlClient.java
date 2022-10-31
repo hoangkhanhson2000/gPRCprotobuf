@@ -44,7 +44,8 @@ public class ManualFlowControlClient {
     StreamingGreeterGrpc.StreamingGreeterStub stub = StreamingGreeterGrpc.newStub(channel);
 
     // When using manual flow-control and back-pressure on the client, the ClientResponseObserver handles both
-    // request and response streams.
+    // request and response
+      // streams.
     ClientResponseObserver<HelloRequest, HelloReply> clientResponseObserver =
         new ClientResponseObserver<>() {
 

@@ -249,13 +249,13 @@ public class RouteGuideClient {
       target = args[0];
     }
 
-    List<Feature> features;
-    try {
-      features = RouteGuideUtil.parseFeatures(RouteGuideUtil.getDefaultFeaturesFile());
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      return;
-    }
+//    List<Feature> features;
+//    try {
+//      features = RouteGuideUtil.parseFeatures(RouteGuideUtil.getDefaultFeaturesFile());
+//    } catch (IOException ex) {
+//      ex.printStackTrace();
+//      return;
+//    }
 
     ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
     try {
@@ -270,7 +270,7 @@ public class RouteGuideClient {
       client.listFeatures(400000000, -750000000, 420000000, -730000000);
 
       // Record a few randomly selected points from the features file.
-      client.recordRoute(features, 10);
+//      client.recordRoute(features, 10);
 
       // Send and receive some notes.
       CountDownLatch finishLatch = client.routeChat();

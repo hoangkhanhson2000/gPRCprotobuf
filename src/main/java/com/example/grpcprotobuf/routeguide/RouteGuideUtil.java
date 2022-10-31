@@ -55,19 +55,20 @@ public class RouteGuideUtil {
   /**
    * Parses the JSON input file containing the list of features.
    */
+
   public static List<Feature> parseFeatures(URL file) throws IOException {
-    final InputStream input = file.openStream();
+//    final InputStream input = file.openStream();
     try {
-      Reader reader = new InputStreamReader(input, Charset.forName("UTF-8"));
+//      Reader reader = new InputStreamReader(input, Charset.forName("UTF-8"));
       try {
         FeatureDatabase.Builder database = FeatureDatabase.newBuilder();
-        JsonFormat.parser().merge(reader, database);
+//        JsonFormat.parser().merge(reader, database);
         return database.getFeatureList();
       } finally {
-        reader.close();
+//        reader.close();
       }
     } finally {
-      input.close();
+//      input.close();
     }
   }
 
