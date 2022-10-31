@@ -56,7 +56,7 @@ public class RetryingHelloWorldClient {
             new JsonReader(
                 new InputStreamReader(
                     RetryingHelloWorldClient.class.getResourceAsStream(
-                        "retrying_service_config.json"),
+                        "/db/retrying/retrying_service_config.json"),
                     UTF_8)),
             Map.class);
   }

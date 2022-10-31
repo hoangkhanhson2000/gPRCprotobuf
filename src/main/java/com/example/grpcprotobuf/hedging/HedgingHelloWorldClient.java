@@ -63,7 +63,7 @@ public class HedgingHelloWorldClient {
                   new JsonReader(
                       new InputStreamReader(
                           HedgingHelloWorldClient.class.getResourceAsStream(
-                              "db/hedging/hedging_service_config.json"),
+                              "/db/hedging/hedging_service_config.json"),
                           UTF_8)),
                   Map.class);
       channelBuilder.defaultServiceConfig(hedgingServiceConfig).enableRetry();

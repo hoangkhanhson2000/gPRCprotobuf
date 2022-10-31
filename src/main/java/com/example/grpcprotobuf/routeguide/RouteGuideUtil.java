@@ -49,7 +49,7 @@ public class RouteGuideUtil {
    * Gets the default features file from classpath.
    */
   public static URL getDefaultFeaturesFile() {
-    return RouteGuideServer.class.getResource("db/routeguide/route_guide_db.json");
+    return RouteGuideServer.class.getResource("/db/routeguide/route_guide_db.json");
   }
 
   /**
@@ -57,18 +57,18 @@ public class RouteGuideUtil {
    */
 
   public static List<Feature> parseFeatures(URL file) throws IOException {
-//    final InputStream input = file.openStream();
+    final InputStream input = file.openStream();
     try {
-//      Reader reader = new InputStreamReader(input, Charset.forName("UTF-8"));
+      Reader reader = new InputStreamReader(input, Charset.forName("UTF-8"));
       try {
         FeatureDatabase.Builder database = FeatureDatabase.newBuilder();
 //        JsonFormat.parser().merge(reader, database);
         return database.getFeatureList();
       } finally {
-//        reader.close();
+        reader.close();
       }
     } finally {
-//      input.close();
+      input.close();
     }
   }
 
