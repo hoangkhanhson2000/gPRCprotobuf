@@ -32,18 +32,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-
-/**
- * Server that manages startup/shutdown of a {@code Greeter} server.
- *
- * <p>This is an advanced example of how to swap out the serialization logic.  Normal users do not
- * need to do this.  This code is not intended to be a production-ready implementation, since JSON
- * encoding is slow.  Additionally, JSON serialization as implemented may be not resilient to
- * malicious input.
- *
- * <p>If you are considering implementing your own serialization logic, contact the grpc team at
- * https://groups.google.com/forum/#!forum/grpc-io
- */
 public class HelloJsonServer {
   private static final Logger logger = Logger.getLogger(HelloJsonServer.class.getName());
 
@@ -57,7 +45,7 @@ public class HelloJsonServer {
         .build()
         .start();
     logger.info("Server started, listening on " + port);
-    Runtime.getRuntime().addShutdownHook(new Thread() {
+    Runtime.getRuntime().addShutdownHook(new Thread(()->{}) {
       @Override
       public void run() {
         // Use stderr here since the logger may have been reset by its JVM shutdown hook.
@@ -110,7 +98,7 @@ public class HelloJsonServer {
           .builder(GreeterGrpc.getServiceDescriptor().getName())
           .addMethod(HelloJsonClient.HelloJsonStub.METHOD_SAY_HELLO,
               asyncUnaryCall(
-                  new ServerCalls.UnaryMethod<HelloRequest, HelloReply>() {
+                  new ServerCalls.UnaryMethod<>() {
                     @Override
                     public void invoke(
                         HelloRequest request, StreamObserver<HelloReply> responseObserver) {

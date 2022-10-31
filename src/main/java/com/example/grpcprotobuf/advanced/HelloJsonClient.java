@@ -28,15 +28,6 @@ import java.util.logging.Logger;
 
 import static io.grpc.stub.ClientCalls.blockingUnaryCall;
 
-/**
- * Advanced example of how to swap out the serialization logic.  Normal users do not need to do
- * this.  This code is not intended to be a production-ready implementation, since JSON encoding
- * is slow.  Additionally, JSON serialization as implemented may be not resilient to malicious
- * input.
- *
- * <p>If you are considering implementing your own serialization logic, contact the grpc team at
- * https://groups.google.com/forum/#!forum/grpc-io
- */
 public final class HelloJsonClient {
   private static final Logger logger = Logger.getLogger(HelloJsonClient.class.getName());
 
@@ -97,7 +88,7 @@ public final class HelloJsonClient {
                 JsonMarshaller.jsonMarshaller(HelloReply.getDefaultInstance()))
             .build();
 
-    protected HelloJsonStub(Channel channel) {
+     protected  HelloJsonStub(Channel channel) {
       super(channel);
     }
 

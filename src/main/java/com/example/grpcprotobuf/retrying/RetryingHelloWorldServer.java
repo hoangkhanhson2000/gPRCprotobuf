@@ -53,7 +53,7 @@ public class RetryingHelloWorldServer {
 
     DecimalFormat df = new DecimalFormat("#%");
     logger.info("Responding as UNAVAILABLE to " + df.format(UNAVAILABLE_PERCENTAGE) + " requests");
-    Runtime.getRuntime().addShutdownHook(new Thread() {
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {}) {
       @Override
       public void run() {
         // Use stderr here since the logger may have been reset by its JVM shutdown hook.

@@ -45,7 +45,7 @@ public class HedgingHelloWorldServer {
         .build()
         .start();
     logger.info("Server started, listening on " + port);
-    Runtime.getRuntime().addShutdownHook(new Thread() {
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {}) {
       @Override
       public void run() {
         // Use stderr here since the logger may have been reset by its JVM shutdown hook.

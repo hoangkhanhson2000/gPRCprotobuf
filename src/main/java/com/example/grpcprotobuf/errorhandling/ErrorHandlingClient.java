@@ -108,7 +108,7 @@ public class ErrorHandlingClient {
 
     Futures.addCallback(
         response,
-        new FutureCallback<HelloReply>() {
+        new FutureCallback<>() {
           @Override
           public void onSuccess(@Nullable HelloReply result) {
             // Won't be called, since the server in this example always fails.
@@ -134,7 +134,7 @@ public class ErrorHandlingClient {
     GreeterGrpc.GreeterStub stub = GreeterGrpc.newStub(channel);
     HelloRequest request = HelloRequest.newBuilder().setName("Homer").build();
     final CountDownLatch latch = new CountDownLatch(1);
-    StreamObserver<HelloReply> responseObserver = new StreamObserver<HelloReply>() {
+    StreamObserver<HelloReply> responseObserver = new StreamObserver<>() {
 
       @Override
       public void onNext(HelloReply value) {
@@ -173,7 +173,7 @@ public class ErrorHandlingClient {
 
     final CountDownLatch latch = new CountDownLatch(1);
 
-    call.start(new ClientCall.Listener<HelloReply>() {
+    call.start(new ClientCall.Listener<>() {
 
       @Override
       public void onClose(Status status, Metadata trailers) {

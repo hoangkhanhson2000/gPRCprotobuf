@@ -42,7 +42,7 @@ public class CustomHeaderServer {
         .build()
         .start();
     logger.info("Server started, listening on " + PORT);
-    Runtime.getRuntime().addShutdownHook(new Thread() {
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {}) {
       @Override
       public void run() {
         // Use stderr here since the logger may have been reset by its JVM shutdown hook.

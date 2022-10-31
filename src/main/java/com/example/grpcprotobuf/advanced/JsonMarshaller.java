@@ -57,7 +57,7 @@ final class JsonMarshaller {
 
     final Charset charset = Charset.forName("UTF-8");
 
-    return new Marshaller<T>() {
+    return new Marshaller<>() {
       @Override
       public InputStream stream(T value) {
         try {

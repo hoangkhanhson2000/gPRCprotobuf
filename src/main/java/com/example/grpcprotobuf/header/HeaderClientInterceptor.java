@@ -37,20 +37,16 @@ public class HeaderClientInterceptor implements ClientInterceptor {
   @Override
   public <ReqT, RespT> ClientCall<ReqT, RespT> interceptCall(MethodDescriptor<ReqT, RespT> method,
       CallOptions callOptions, Channel next) {
-    return new SimpleForwardingClientCall<ReqT, RespT>(next.newCall(method, callOptions)) {
+    return new SimpleForwardingClientCall<>(next.newCall(method, callOptions)) {
 
       @Override
       public void start(Listener<RespT> responseListener, Metadata headers) {
         /* put custom header */
         headers.put(CUSTOM_HEADER_KEY, "customRequestValue");
-        super.start(new SimpleForwardingClientCallListener<RespT>(responseListener) {
+        super.start(new SimpleForwardingClientCallListener<>(responseListener) {
           @Override
           public void onHeaders(Metadata headers) {
-            /**
-             * if you don't need receive header from server,
-             * you can use {@link io.grpc.stub.MetadataUtils#attachHeaders}
-             * directly to send header
-             */
+
             logger.info("header received from server:" + headers);
             super.onHeaders(headers);
           }
