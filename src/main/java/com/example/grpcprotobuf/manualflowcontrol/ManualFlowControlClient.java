@@ -4,7 +4,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.ClientCallStreamObserver;
 import io.grpc.stub.ClientResponseObserver;
-import io.grpc.stub.StreamObserver;
+
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -74,7 +74,7 @@ public class ManualFlowControlClient {
                 };
 
 
-        StreamObserver<HelloRequest> helloRequestStreamObserver = stub.sayHelloStreaming(clientResponseObserver);
+        stub.sayHelloStreaming(clientResponseObserver);
         done.await();
         channel.shutdown();
         channel.awaitTermination(1, TimeUnit.SECONDS);
