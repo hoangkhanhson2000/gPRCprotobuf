@@ -4,6 +4,7 @@ package com.example.grpcprotobuf.goodbye;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -21,7 +22,8 @@ public class GoodbyeServer {
                 .build()
                 .start();
         logger.info("Server started, listening on " + port);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {}) {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+        }) {
             @Override
             public void run() {
 

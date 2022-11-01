@@ -31,7 +31,8 @@ public class StockServer {
         server.start();
         logger.info("Server started, listening on " + port);
         Runtime.getRuntime()
-                .addShutdownHook(new Thread(()->{}) {
+                .addShutdownHook(new Thread(() -> {
+                }) {
                     @Override
                     public void run() {
                         System.err.println("shutting down server");
@@ -40,7 +41,7 @@ public class StockServer {
                         } catch (InterruptedException e) {
                             e.printStackTrace(System.err);
                         }
-                        System.err.println("server shutted down");
+                        System.err.println("server shut down");
                     }
                 });
     }

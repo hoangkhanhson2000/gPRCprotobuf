@@ -97,7 +97,7 @@ public class StockClient {
         }
     }
 
-    public void bidirectionalStreamingGetListsStockQuotes() throws InterruptedException{
+    public void bidirectionalStreamingGetListsStockQuotes() throws InterruptedException {
 
         logger.info("3.BidirectionalStreaming - getListsStockQuotes from list of stocks");
         final CountDownLatch finishLatch = new CountDownLatch(1);
@@ -168,7 +168,7 @@ public class StockClient {
     private void initializeStocks() {
 
         this.stocks = Arrays.asList(
-                  Stock.newBuilder().setTickerSymbol("UNI").setCompanyName("UniCloud Corp").setDescription("UniCloud Tech").build()
+                Stock.newBuilder().setTickerSymbol("UNI").setCompanyName("UniCloud Corp").setDescription("UniCloud Tech").build()
                 , Stock.newBuilder().setTickerSymbol("OMG").setCompanyName("OMG Corp").setDescription("OMG Intel").build()
                 , Stock.newBuilder().setTickerSymbol("VNG").setCompanyName("VNG Corp").setDescription("VNG Intel").build()
                 , Stock.newBuilder().setTickerSymbol("VTC").setCompanyName("VTC Corp").setDescription("VTC Intel").build()
