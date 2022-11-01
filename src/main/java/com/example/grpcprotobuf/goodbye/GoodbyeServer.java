@@ -1,9 +1,6 @@
 package com.example.grpcprotobuf.goodbye;
 
-import com.example.grpcprotobuf.goodbye.GoodbyeGrpc;
-import com.example.grpcprotobuf.goodbye.GoodbyeReply;
-import com.example.grpcprotobuf.goodbye.GoodbyeRequest;
-import com.example.grpcprotobuf.helloworld.HelloWorldServer;
+
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;

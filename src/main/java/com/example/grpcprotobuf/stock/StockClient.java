@@ -58,7 +58,7 @@ public class StockClient {
 
         logger.info("2.ClientSideStreaming - getStatisticsOfStocks from a list of stocks");
         final CountDownLatch finishLatch = new CountDownLatch(1);
-        StreamObserver<StockQuote> responseObserver = new StreamObserver<StockQuote>() {
+        StreamObserver<StockQuote> responseObserver = new StreamObserver<>() {
             @Override
             public void onNext(StockQuote summary) {
                 logger.info("RESPONSE, got stock statistics - Average Price: {}, description: {}", summary.getPrice(), summary.getDescription());
@@ -101,7 +101,7 @@ public class StockClient {
 
         logger.info("3.BidirectionalStreaming - getListsStockQuotes from list of stocks");
         final CountDownLatch finishLatch = new CountDownLatch(1);
-        StreamObserver<StockQuote> responseObserver = new StreamObserver<StockQuote>() {
+        StreamObserver<StockQuote> responseObserver = new StreamObserver<>() {
             @Override
             public void onNext(StockQuote stockQuote) {
                 logger.info("RESPONSE price#{} : {}, description:{}", stockQuote.getOfferNumber(), stockQuote.getPrice(), stockQuote.getDescription());
@@ -115,7 +115,7 @@ public class StockClient {
 
             @Override
             public void onError(Throwable t) {
-                logger.warn("bidirectionalStreamingGetListsStockQuotes Failed: {0}", Status.fromThrowable(t));
+                logger.warn("bidirectionalStreamingGetListsStockQuotes Failed: {}", Status.fromThrowable(t));
                 finishLatch.countDown();
             }
         };

@@ -1,6 +1,5 @@
 package com.example.grpcprotobuf.goodbye;
 
-import com.example.grpcprotobuf.goodbye.*;
 import io.grpc.Channel;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

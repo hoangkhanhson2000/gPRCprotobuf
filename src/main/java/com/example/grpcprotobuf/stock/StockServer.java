@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-import com.example.grpcprotobuf.stock.*;
-
 import com.example.grpcprotobuf.streaming.Stock;
 import com.example.grpcprotobuf.streaming.StockQuote;
 import com.example.grpcprotobuf.streaming.StockQuoteProviderGrpc;
@@ -22,7 +20,7 @@ public class StockServer {
     private final int port;
     private final Server server;
 
-    public StockServer(int port) throws IOException {
+    public StockServer(int port) {
         this.port = port;
         server = ServerBuilder.forPort(port)
                 .addService(new StockService())
@@ -33,7 +31,7 @@ public class StockServer {
         server.start();
         logger.info("Server started, listening on " + port);
         Runtime.getRuntime()
-                .addShutdownHook(new Thread() {
+                .addShutdownHook(new Thread(()->{}) {
                     @Override
                     public void run() {
                         System.err.println("shutting down server");
@@ -84,15 +82,15 @@ public class StockServer {
 
         @Override
         public StreamObserver<Stock> clientSideStreamingGetStatisticsOfStocks(final StreamObserver<StockQuote> responseObserver) {
-            return new StreamObserver<Stock>() {
+            return new StreamObserver<>() {
                 int count;
                 double price = 0.0;
-                StringBuffer sb = new StringBuffer();
+                final StringBuffer sb = new StringBuffer();
 
                 @Override
                 public void onNext(Stock stock) {
                     count++;
-                    price = +fetchStockPriceBid(stock);
+                    price = fetchStockPriceBid(stock);
                     sb.append(":")
                             .append(stock.getTickerSymbol());
                 }
@@ -101,7 +99,7 @@ public class StockServer {
                 public void onCompleted() {
                     responseObserver.onNext(StockQuote.newBuilder()
                             .setPrice(price / count)
-                            .setDescription("Statistics-" + sb.toString())
+                            .setDescription("Statistics-" + sb)
                             .build());
                     responseObserver.onCompleted();
                 }
@@ -115,7 +113,7 @@ public class StockServer {
 
         @Override
         public StreamObserver<Stock> bidirectionalStreamingGetListsStockQuotes(final StreamObserver<StockQuote> responseObserver) {
-            return new StreamObserver<Stock>() {
+            return new StreamObserver<>() {
                 @Override
                 public void onNext(Stock request) {
 

@@ -43,12 +43,13 @@ public class RouteGuideClient {
   private final RouteGuideGrpc.RouteGuideStub asyncStub;
 
   private final Random random = new Random();
-  private TestHelper testHelper;
+  private static TestHelper testHelper;
 
   /** Construct client for accessing RouteGuide server using the existing channel. */
-  public RouteGuideClient(Channel channel) {
+  public RouteGuideClient(Channel channel, TestHelper testHelper) {
     blockingStub = RouteGuideGrpc.newBlockingStub(channel);
     asyncStub = RouteGuideGrpc.newStub(channel);
+    RouteGuideClient.testHelper = testHelper;
   }
 
   /**
@@ -259,7 +260,7 @@ public class RouteGuideClient {
 
     ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
     try {
-      RouteGuideClient client = new RouteGuideClient(channel);
+      RouteGuideClient client = new RouteGuideClient(channel, testHelper);
       // Looking for a valid feature
       client.getFeature(409146138, -746188906);
 
@@ -297,12 +298,6 @@ public class RouteGuideClient {
   }
 
 
-//  @VisibleForTesting
-//  void setRandom(Random random) {
-//    this.random = random;
-//  }
-
-
   @VisibleForTesting
   interface TestHelper {
     /**
@@ -316,8 +311,5 @@ public class RouteGuideClient {
     void onRpcError(Throwable exception);
   }
 
-//  @VisibleForTesting
-//  void setTestHelper(TestHelper testHelper) {
-//    this.testHelper = testHelper;
-//  }
+
 }
