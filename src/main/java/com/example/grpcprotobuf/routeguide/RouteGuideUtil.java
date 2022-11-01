@@ -62,7 +62,7 @@ public class RouteGuideUtil {
       Reader reader = new InputStreamReader(input, Charset.forName("UTF-8"));
       try {
         FeatureDatabase.Builder database = FeatureDatabase.newBuilder();
-//        JsonFormat.parser().merge(reader, database);
+        JsonFormat.parser().merge(reader, database);
         return database.getFeatureList();
       } finally {
         reader.close();

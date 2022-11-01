@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpcprotobuf.goodbye";
+option java_outer_classname = "GoodbyeProto";
+option objc_class_prefix = "HLW";
+
+package goodbye;
+
+
+service Goodbye {
+
+  rpc SayGoodbye(GoodbyeRequest) returns (GoodbyeReply) {}
+}
+
+
+message GoodbyeRequest {
+  string name = 1;
+}
+
+
+message GoodbyeReply {
+  string message = 1;
+}

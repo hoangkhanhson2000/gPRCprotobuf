@@ -39,6 +39,7 @@ dependencies {
     // examples/advanced need this for JsonFormat
     implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
     runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
 }
 
 tasks.named('test') {

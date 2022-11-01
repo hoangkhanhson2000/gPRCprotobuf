@@ -132,7 +132,7 @@ public class ManualFlowControlServer {
     };
 
     final Server server = ServerBuilder
-        .forPort(50052)
+        .forPort(50051)
         .addService(svc)
         .build()
         .start();
